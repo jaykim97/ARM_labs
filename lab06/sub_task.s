@@ -83,11 +83,11 @@ PrintList:
 	STMFD	SP!, {R2,R3,LR}
 	MOV R0, #stdout
 	loop1:
-	LDR R1, [R3], #4
-	SWI SWI_PrInt
-	BL PrintCR
-	CMP R2,R3
-	BNE loop1
+	LDR R1, [R3], #4	@ Load current value of the list to R1 post increment
+	SWI SWI_PrInt		@ Print value in R1 to out
+	BL PrintCR			@ Branch to PrintCR
+	CMP R2,R3			@ Compare current address in R3 to end of the list R2
+	BNE loop1			@ If not end of the list go back to top of the loop
 
 	LDMFD   SP!, {R2,R3,PC}
 		
@@ -105,11 +105,11 @@ SumList:
     */
 	STMFD	SP!, {R2,R3,LR}
 	MOV R0,#0 @initialize sum
-	sumLoop:
-	LDR R1, [R3], #4
-	ADD R0, R0, R1
-	CMP R2,R3
-	BNE sumLoop
+	sumLoop:	
+	LDR R1, [R3], #4	@ Load current value of the list to R1 post increment
+	ADD R0, R0, R1		@ Add current value in R1 to current sum R0
+	CMP R2,R3			@ Compare current address in R3 to end of the list R2
+	BNE sumLoop			@ If not end of the list go back to top of the loop
 	
 	LDMFD	SP!, {R2,R3,PC}
 
@@ -131,12 +131,12 @@ AddLists:
     */
 	STMFD	SP!, {R2-R5,R7,LR}
 	addlistLoop:
-	LDR R0, [R3], #4
-	LDR R1, [R5], #4
-	ADD R6, R1, R0
-	STR R6,[R7],#4
-	CMP R2, R3
-	BNE addlistLoop
+	LDR R0, [R3], #4	@ Load current value of the list data1 to R0 post increment
+	LDR R1, [R5], #4	@ Load current value of the list data2 to R1 post increment
+	ADD R6, R1, R0		@ Add current values in R1 and R0
+	STR R6,[R7],#4		@ Store sum of R1 and R0 in R6 to list data3 post increment
+	CMP R2, R3			@ Compare current address in R3 to end of the list R2
+	BNE addlistLoop		@ If not end of the list go back to top of the loop
 	LDMFD	SP!, {R2-R5,R7,PC}
 
 .data
