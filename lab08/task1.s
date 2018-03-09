@@ -168,7 +168,7 @@ _isUpperCase:
 
 @-------------------------------------------------------
 @This causes error. 
-@Reason: when branching to isLowerCase LR will be the CMP R0, #False line.
+@Reason: when branching to isLowerCase LR changes to line 189 CMP R0, #False.
 @		This will cause LR back to actual main function to be lost and 
 @		continuously loop inside isLetter
 isLetter:

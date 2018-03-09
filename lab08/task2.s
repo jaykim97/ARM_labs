@@ -139,15 +139,14 @@ CountLowerCaseR:
 	
 	LDRB R2, [R1], #1
 	CMP R2, #0	@ NULL TERMINATED
-	@BEQ _CountLowerCaseR why doesnt work?
-	MOVEQ PC, LR @Better way to do it?
+	BEQ _CountLowerCaseR @why doesnt work? NVM WORKS NOW
 	CMP	R2, #'a'
 	BLT	CountLowerCaseR	@ < 'a', return False
 	CMP	R2, #'z'
 	ADDLE R0,R0,#1 @ <= 'z', return True
 	B CountLowerCaseR
 _CountLowerCaseR:
-	STMFD SP!, {R1, PC}
+	LDMFD SP!, {R1, PC}
 
 @-------------------------------------------------------
 TestStringStr:

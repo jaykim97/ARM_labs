@@ -160,7 +160,7 @@ Palindrome:
 	
 	-------------------------------------------------------
 	*/
-	STMFD SP!, {R1,R2,LR}
+	STMFD SP!, {R1,LR}
 	MOV R0, #1	@ initialize R0 to be true
 	
 	CMP R2, #0
@@ -170,21 +170,17 @@ Palindrome:
 	MOVEQ R0, #1
 	MOVEQ PC,LR	@ if length is 1 true and leave the recursion
 	
+	SUB R2, R2, #1
+	LDRB R5,[R1,R2]
+	LDRB R4,[R1],#1
+	CMP R4, R5
+	SUB R2, R2, #1
+	BEQ Palindrome
+	MOVNE R0, #0
+	BNE _Palindrome
 	
-	CMP R6, #0	@compare if the first time flag/counter is set
-	SUBEQ R2, R2, #1	@ if flag/counter was not set sub length by 1 since index goes from 0 to 6 not 7 
-	ADDEQ R3, R2, R1	@ get address of end of the string if first time flag/counter
-	ADD R6, R6,#1	@	@increment counter by 1
-	LDRB R4, [R1], #1	@ load first value
-	LDRB R5, [R3], #-1	@ load last value
-	CMP R6, R2	@ compare counter and length
-	BEQ _Palindrome	@if equal exit the subloutine 
-	CMP R4, R5	@ compare front and back
-	MOVNE R0, #0	@if not euqal set it to false
-	BNE _Palindrome	@ if not equal exit subroutine 
-	B Palindrome	@recursion
 _Palindrome:
-	LDMFD SP!, {R1,R2,PC}
+	LDMFD SP!, {R1,PC}
 	@ your code here
 	
 
