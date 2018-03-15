@@ -137,8 +137,7 @@ strncmp:
     -------------------------------------------------------
     */
 
-    @ your code here
-    @ initialize stack, frame pointer, and extract parameters from stack
+    
 	STMFD	SP!, {FP,LR}	@ Push frame pointer and link register onto the stack
 	MOV	FP, SP				@ Save current stack top to frame pointer
 	
@@ -166,10 +165,8 @@ strncmpLoop:
     
 _strncmp:
 	
-    @ your code here
-    @ clean up stack
 	LDMFD	SP!, {R1-R5}	@ Pop preserved registers
-	LDMFD	SP!, {FP, PC}	@ pop frame pointer and program counter
+	LDMFD	SP!, {FP, PC}	@ Pop frame pointer and program counter
 
 @-------------------------------------------------------
 TestStr:

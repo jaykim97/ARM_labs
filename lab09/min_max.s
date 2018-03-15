@@ -51,7 +51,6 @@ Date:    2018-03-13
 	STMFD SP!,{R1}
 	
 	BL    MinMax       @ Call the function
-       @ Release the parameter memory from the stack
     ADD SP, SP, #16	@ Release the parameter memory from the stack
 		
 	
@@ -107,7 +106,6 @@ MinMax:
     -------------------------------------------------------
     */
 
-	@ your code here
 	STMFD SP!, {FP, LR}	@ push frame pointer and link register onto the stack
 	MOV FP, SP			@ Save current stack top to frame pointer
 	
